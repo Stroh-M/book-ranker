@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Read Ranker | New book</title>
+    <link rel="stylesheet" href="/styles/styles.css" />
+  </head>
+  <body>
+    <nav>
+        <span>⇦</span>
+        <a class="back-link" href="/">Back to Home</a>
+    </nav>
+    <h1 class="form-page-title">Book Submission Form</h1>
+    <main class="form-container">
+      <form
+        class="form-new-book"
+        name="newBook"
+        action="/addnewbook/add"
+        method="post"
+      >
+        <div class="book-title-entry-container">
+          <label for="bookTitle">Book Title:</label>
+          <input type="text" name="bookTitle" id="bookTitle" autocomplete="off"/>
+        </div>
+
+        <div class="author-name-entry-container">
+          <label for="authorName">Author's Name:</label>
+          <input type="text" name="authorName" id="authorName" autocomplete="off"/>
+        </div>
+
+        <div class="book-rating-entry-container">
+          <label class="rating-text-color" for="rating">Rating:</label>
+          <select class="rating-text-color" type="number" name="rating" id="rating">
+            <option class="rating-text-color" value="0">0</option>
+            <option class="rating-text-color" value="1">1</option>
+            <option class="rating-text-color" value="2">2</option>
+            <option class="rating-text-color" value="3">3</option>
+            <option class="rating-text-color" value="4">4</option>
+            <option class="rating-text-color" value="5">5</option>
+            <option class="rating-text-color" value="6">6</option>
+            <option class="rating-text-color" value="7">7</option>
+            <option class="rating-text-color" value="8">8</option>
+            <option class="rating-text-color" value="9">9</option>
+            <option class="rating-text-color" value="10">10</option>
+          </select>
+        </div>
+
+        <div class="book-description-entry-container">
+          <label for="description">Book Description:</label>
+          <textarea class="description-textarea-form" name="description" id="description" ></textarea>
+        </div>
+
+        <div class="notes-entry-container">
+          <label for="notes">Notes:</label>
+          <textarea type="text" name="notes" id="notes"></textarea>
+        </div>
+
+        <div class="newbook-submit-button-container">
+          <input class="submit-button" type="submit" value="Add" />
+        </div>
+      </form>
+    </main>
+
+    <%- include("partials/footer.ejs") %>
+  </body>
+</html>

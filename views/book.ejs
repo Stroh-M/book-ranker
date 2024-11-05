@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Read Ranker | <%= books[0].title %></title>
+    <link rel="stylesheet" href="/styles/book.css" />
+  </head>
+  <body>
+    <header>
+      <nav>
+        <span>⇦</span>
+        <a class="back-link" href="/">Back to Home</a>
+      </nav>
+    </header>
+    <main>
+      <div class="flex-container">
+        <div class="book-info">
+          <h1><%= books[0].title %></h1>
+          <p on>by: <%= books[0].author %></p>
+          <img
+            alt="placeholder for image"
+            src="https://covers.openlibrary.org/b/isbn/<%= books[0].isbn %>-M.jpg"
+          />
+          <p><%= books[0].description %></p>
+        </div>
+
+        <h2>Notes:</h2>
+
+        <% books.forEach(book => { %>
+        <div
+          class="note"
+          id="note<%= locals.error ? error: book.note_id %>"
+          onmouseover="showOptions(<%= book.note_id %>)"
+          onmouseout="hideOptions(<%= book.note_id %>)"
+        >
+          <p class="note"><%= locals.error ? error : book.note %></p>
+            <div class="options-button-container">
+              <form action="/note/delete/<%= book.note_id %>" method="post">
+                <input type="hidden" name="bookId" value="<%= book.book_id %>" />
+                <input
+                  type="hidden"
+                  name="selectedNote"
+                  value="<%= book.note_id %>"
+                />
+                <button class="button" name="deleteButton" id="deleteButton<%= book.note_id %>" hidden><i class="fa-solid fa-trash"></i></button>
+              </form>
+
+              <button class="button" name="editNote" id="editNote<%= book.note_id %>" onclick="pullUpEditPage(<%= book.note_id %>)" hidden><i class="fa-regular fa-pen-to-square"></i></button>
+            </div>  
+        </div>
+
+        <form class="edit-note-form" action="/note/<%= book.note_id %>" method="post">
+          <textarea
+            class="note-edit-textarea"
+            name="editedNote"
+            id="editArea<%= book.note_id %>"
+            hidden
+            required
+          ><%= book.note %></textarea>
+          <div class="edit-button-container">
+            <input
+              type="hidden"
+              name="submit-edit"
+              id="submit-edit<%= book.note_id %>"
+              value="Edit"
+            />
+          </div>
+          
+        </form>
+        <% }) %>
+
+        <form class="add-new-note-form" action="/book/addnote" method="post">
+          <input
+            class="plus-button"
+            type="button"
+            value="+"
+            name="addNote"
+            id="addNote"
+            onclick="newNoteHandler()"
+          />
+          <div class="new-note-input-container">
+            <div>
+              <textarea class="new-note-input" hidden name="newNote" id="newNote"></textarea>
+            </div>
+            
+            <div class="button-container">
+              <input
+                class="new-note-submit"
+                type="hidden"
+                name="submitButton"
+                id="submitButton"
+                value="Add"
+              />
+            </div>
+            
+          </div>
+          
+          <input
+            type="hidden"
+            name="bookId"
+            value="<%=locals.bookId ? bookId : books[0].book_id %>"
+          />
+        </form>
+      </div>
+    </main>
+    <script src="https://kit.fontawesome.com/e303c92243.js" crossorigin="anonymous"></script>
+    <script>
+      function newNoteHandler() {
+        document.getElementById("addNote").setAttribute("hidden", true);
+        document.getElementById("newNote").removeAttribute("hidden");
+        document.getElementById("submitButton").setAttribute("type", "submit");
+      }
+
+      function showOptions(id) {
+        console.log("event triggered!!");
+        document
+          .getElementById("deleteButton" + id)
+          .removeAttribute("hidden");
+        document.getElementById("editNote" + id).removeAttribute("hidden");
+      }
+
+      function pullUpEditPage(id) {
+        console.log("worked");
+        document.getElementById("note" + id).setAttribute("hidden", true);
+        document
+          .getElementById("deleteButton" + id)
+          .setAttribute("type", "hidden");
+        document.getElementById("editNote" + id).setAttribute("type", "hidden");
+        document.getElementById("editArea" + id).removeAttribute("hidden");
+        document.getElementById("submit-edit" + id).setAttribute("type", "submit");
+      }
+
+      function hideOptions(id) {
+        document
+          .getElementById("deleteButton" + id)
+          .setAttribute("hidden", true);
+        document.getElementById("editNote" + id).setAttribute("hidden", true);
+      }
+    </script>
+    <%- include("partials/footer.ejs") %>
+  </body>
+</html>

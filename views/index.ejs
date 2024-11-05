@@ -1,0 +1,60 @@
+<%- include("partials/header.ejs") %>
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li class="button-add-new"><button class="addnewbook-link"><a href="/addnewbook">Add new book</a></button></li>
+        <li class="form-sort">
+          <form class="sort-form" action="/sort" method="post">
+            <label for="sort">Sort By:</label>
+            <select name="sort" id="sort">
+              <option value="ORDER BY title ASC">Name</option>
+              <option value="ORDER BY rating DESC">Best To Wrost</option>
+              <option value="ORDER BY author ASC">Author Name</option>
+              <option value="ORDER BY id DESC">Most Recently Added</option>
+            </select>
+            <button class="sort-button" type="submit">Sort</button>
+          </form>
+        </li>
+      </ul>
+    </nav>
+  </header>
+  
+  <h1>Welcome to Read Ranker</h1>
+  <div class="p">
+    <p>
+      Here, I share my reviews and personal notes on the books I've read,
+      offering insights and reflections on a variety of titles. You're welcome
+      to explore and, if you’d like, contribute your own reviews and thoughts on
+      books you've enjoyed!
+    </p>
+  </div>
+
+  <section class="list-books">
+    <% books.forEach((book) => { %>
+    <!-- <div class="title-box"> -->
+    <div class="book-card">
+      <!-- <img
+          class="book-cover"
+          alt="book cover"
+          src="https://covers.openlibrary.org/b/isbn/<%#= book.isbn %>-S.jpg"
+          width="100"
+        /> -->
+        <div class="book-title-card">
+          <a href="/book/<%= book.id %>"><h2><%= book.title %></h2></a>
+          <p class="book-author">by: <%= book.author %></p>
+        </div>
+        <span class="book-rating"><%= book.rating %>/10</span>
+        <div class="book-description-card">
+          <p class="book-description"><%= book.description %></p>
+        </div>
+      
+      
+      
+      
+    </div>
+    <!-- </div> -->
+    <% }); %>
+  </section>
+</body>
+<%- include("partials/footer.ejs") %>
