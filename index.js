@@ -9,11 +9,10 @@ const port = 3000;
 configDotenv()
 
 const db = new pg.Client({
-    user: process.env.PG_USER,
-    database: process.env.PG_DATABASE,
-    host: process.env.PG_HOST,
-    password: process.env.PG_PASSWORD,
-    port: process.env.PG_PORT
+    connectionString: process.env.Database_URL,
+    ssl: {
+        rejectUnauthorized: false,
+    },
 });
 
 db.connect();
