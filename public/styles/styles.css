@@ -439,7 +439,7 @@ footer {
     }
 }
 
-@media (max-width: 365px) {
+@media (max-width: 375px) {
     .book-title-card > a{
         font-size: 15px;
     }
