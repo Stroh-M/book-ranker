@@ -8,12 +8,11 @@
           <form class="sort-form" action="/sort" method="post">
             <label for="sort">Sort By:</label>
             <select name="sort" id="sort">
-              <option value="ORDER BY title ASC">Name</option>
-              <option value="ORDER BY rating DESC">Best To Wrost</option>
-              <option value="ORDER BY author ASC">Author Name</option>
-              <option value="ORDER BY id DESC">Most Recently Added</option>
+              <option value="ORDER BY title ASC" onClick="submitForm()">Name</option>
+              <option value="ORDER BY rating DESC" onClick="submitForm()">Best To Wrost</option>
+              <option value="ORDER BY author ASC" onClick="submitForm()">Author Name</option>
+              <option value="ORDER BY id DESC" onClick="submitForm()">Most Recently Added</option>
             </select>
-            <button class="sort-button" type="submit">Sort</button>
           </form>
         </li>
       </ul>
@@ -56,5 +55,15 @@
     <!-- </div> -->
     <% }); %>
   </section>
+<script>
+        document.querySelector(".sort-form").addEventListener("submit", function(e) {
+            e.preventDefault();
+        }
+
+        function submitForm() {
+            const myForm = document.querySelector(".sort-form");
+            myForm.submit();
+        }      
+</script>
 </body>
 <%- include("partials/footer.ejs") %>
